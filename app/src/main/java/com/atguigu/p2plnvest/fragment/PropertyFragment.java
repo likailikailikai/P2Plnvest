@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.atguigu.p2plnvest.R;
 
@@ -19,7 +20,8 @@ public class PropertyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.fragment_home,null);
-        return view;
+        TextView textView = new TextView(getActivity());
+        textView.setText("Property");
+        return textView;
     }
 }
