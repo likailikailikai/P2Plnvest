@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_welcome"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/start_background">
@@ -20,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="硅谷金融"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/white"
         android:textSize="40sp" />
 
     <LinearLayout
@@ -35,17 +36,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="当前版本:"
-            android:textColor="#ffffff"
+            android:textColor="@android:color/white"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tv_welcome_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/splash_tv_version"
             android:text="1.1"
-            android:textColor="#ffffff"
+            android:textColor="@android:color/white"
             android:textSize="15sp" />
-
     </LinearLayout>
-
 </RelativeLayout>
+
+
