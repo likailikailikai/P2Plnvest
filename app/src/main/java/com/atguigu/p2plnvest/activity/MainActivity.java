@@ -15,6 +15,7 @@ import com.atguigu.p2plnvest.fragment.HomeFragment;
 import com.atguigu.p2plnvest.fragment.InvestFragment;
 import com.atguigu.p2plnvest.fragment.MoreFragment;
 import com.atguigu.p2plnvest.fragment.PropertyFragment;
+import com.atguigu.p2plnvest.utils.AppManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+
+        //添加到AppManager
+        AppManager.getInstance().addActivity(this);
 
         initData();
 
