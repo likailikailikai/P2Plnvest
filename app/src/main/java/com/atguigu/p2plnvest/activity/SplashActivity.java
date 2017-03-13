@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.inject(this);
 
-        Log.e("aaa", "onCreate"+1/0);
+//        Log.e("aaa", "onCreate"+1/0);
         AppManager.getInstance().addActivity(this);
 
         initData();
