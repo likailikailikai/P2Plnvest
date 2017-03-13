@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
 
                 //动画执行完
-                startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 finish();
             }
 
@@ -98,5 +98,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onDestroy();
 //        AppManager.getInstance().removeActivity(this);
 //        AppManager.getInstance().removeCurrentActivity();
+        AppManager.getInstance().remove(this);
     }
 }
