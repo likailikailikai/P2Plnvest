@@ -2,6 +2,7 @@ package com.atguigu.p2plnvest.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,8 +16,10 @@ import com.alibaba.fastjson.JSON;
 import com.atguigu.p2plnvest.R;
 import com.atguigu.p2plnvest.bean.HomeBean;
 import com.atguigu.p2plnvest.command.AppNetConfig;
+import com.atguigu.p2plnvest.ui.MyProgress;
 import com.atguigu.p2plnvest.utils.LoadNet;
 import com.atguigu.p2plnvest.utils.LoadNetHttp;
+import com.atguigu.p2plnvest.utils.ThreadPool;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -47,6 +50,8 @@ public class HomeFragment extends Fragment {
     TextView tvHomeProduct;
     @InjectView(R.id.tv_home_yearrate)
     TextView tvHomeYearrate;
+    @InjectView(R.id.home_progress)
+    MyProgress homeprogress;
 
     @Nullable
     @Override
@@ -87,15 +92,29 @@ public class HomeFragment extends Fragment {
             public void success(String context) {
 //                Log.i("http", "success: " + context);
                 HomeBean homeBean = JSON.parseObject(context, HomeBean.class);
-                tvHomeYearrate.setText(Double.parseDouble(homeBean.getProInfo().getYearRate()) / 100 + "%");
+                tvHomeYearrate.setText(homeBean.getProInfo().getYearRate()+"%");
                 tvHomeProduct.setText(homeBean.getProInfo().getName());
                 //注意：展示UI 一定要判断是不是主线程
+                initProgress(homeBean.getProInfo());
                 initBanner(homeBean);
             }
 
             @Override
             public void failure(String error) {
                 Log.i("http", "failure: " + error);
+            }
+        });
+    }
+
+    private void initProgress(final HomeBean.ProInfoBean proInfo) {
+        ThreadPool.getInstance().getGlobalThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                int progress = Integer.parseInt(proInfo.getProgress());
+                for ( int i = 0 ;i < progress ; i++){
+                    SystemClock.sleep(120);
+                    homeprogress.setProgress(i);
+                }
             }
         });
     }
