@@ -37,7 +37,7 @@ import butterknife.InjectView;
  * 作用：
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
     @InjectView(R.id.base_title)
     TextView baseTitle;
     @InjectView(R.id.base_back)
@@ -53,57 +53,32 @@ public class HomeFragment extends Fragment {
     @InjectView(R.id.home_progress)
     MyProgress homeprogress;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.fragment_home, null);
-        ButterKnife.inject(this, view);
-        return view;
+    public int getLayoutid() {
+        return R.layout.fragment_home;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        //初始化数据
-        initData();
-        //初始化监听
-        initListener();
+    public String getChildUrl() {
+        return AppNetConfig.INDEX;
     }
 
-    private void initListener() {
+    public void initListener() {
         //初始化title
         baseTitle.setText("首页");
         baseBack.setVisibility(View.INVISIBLE);
         baseSetting.setVisibility(View.INVISIBLE);
     }
 
-    private void initData() {
 
-        /*
-        * 二次封装
-        * 为什么要二次封装
-        *
-        * 第一  调用的方便
-        * 第二  修改和维护方便
-        * */
-        LoadNet.getDataPost(AppNetConfig.INDEX, new LoadNetHttp() {
-            @Override
-            public void success(String context) {
-//                Log.i("http", "success: " + context);
-                HomeBean homeBean = JSON.parseObject(context, HomeBean.class);
-                tvHomeYearrate.setText(homeBean.getProInfo().getYearRate()+"%");
-                tvHomeProduct.setText(homeBean.getProInfo().getName());
-                //注意：展示UI 一定要判断是不是主线程
-                initProgress(homeBean.getProInfo());
-                initBanner(homeBean);
-            }
+    public void initData(String json) {
+        HomeBean homeBean = JSON.parseObject(json, HomeBean.class);
+        //Log.i("http", "success: "+homeBean.getImageArr().size());
+        tvHomeYearrate.setText(homeBean.getProInfo().getYearRate() + "%");
+        tvHomeProduct.setText(homeBean.getProInfo().getName());
+        //注意：展示UI一定要判断是不是主线程
+        initProgress(homeBean.getProInfo());
+        initBanner(homeBean);
 
-            @Override
-            public void failure(String error) {
-                Log.i("http", "failure: " + error);
-            }
-        });
     }
 
     private void initProgress(final HomeBean.ProInfoBean proInfo) {
@@ -111,8 +86,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 int progress = Integer.parseInt(proInfo.getProgress());
-                for ( int i = 0 ;i < progress ; i++){
-                    SystemClock.sleep(120);
+                for (int i = 0; i <= progress; i++) {
+                    SystemClock.sleep(20);
                     homeprogress.setProgress(i);
                 }
             }

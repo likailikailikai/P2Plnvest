@@ -69,19 +69,27 @@ public class MyProgress extends View {
      * 第二步画弧
      * 第三步画文字
      */
-    private void init(){
+    private void init() {
         //画笔
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
         paint.setAntiAlias(true);//抗锯齿 看起来圆润一些
     }
 
+    /**
+     * 注意 构造器只会调用一次 onDraw方法会调用多闪
+     * 在构造器里初始化的数据 一定要是通用的（不变的）
+     * 否则会在第二次onDraw的时候进行覆盖
+     *
+     * @param canvas
+     */
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         //前两个参数是圆心坐标， 第三个参数是半径 第四个参数是画笔
-        int cx = measuredWidth /2 ;
+        int cx = measuredWidth / 2;
         int cy = measuredHeight / 2;
         //控件的宽度 - 圆环宽度的一半
         int radius = cx - roundWidth / 2;
@@ -89,21 +97,21 @@ public class MyProgress extends View {
         paint.setColor(roundColor);
         //设置圆环的宽度
         paint.setStrokeWidth(roundWidth);
-        canvas.drawCircle(cx,cy,radius,paint);
+        canvas.drawCircle(cx, cy, radius, paint);
         /**
          *画弧
          * RectF里面存放的是float的类型
          +  Rect里面存放的是int值
          */
         //存放了圆环中间矩形的左上顶点和右下顶点
-        RectF rectf = new RectF(roundWidth / 2,roundWidth / 2,
-                measuredWidth - roundWidth /2 ,measuredHeight - roundWidth / 2);
+        RectF rectf = new RectF(roundWidth / 2, roundWidth / 2,
+                measuredWidth - roundWidth / 2, measuredHeight - roundWidth / 2);
         paint.setColor(sweepColor);
         //第二个参数是起始角 第三个参数多少度
-        canvas.drawArc(rectf, 0, sweepArc, false, paint);
+        canvas.drawArc(rectf, 0, sweepArc * 360 / 100, false, paint);
 
         //画文字
-        String text = sweepArc * 100 / 360 + "%";
+        String text = sweepArc + "%";
         Rect rect = new Rect();
         //第一个参数是文本 第二个到第三个参数是文字的截取的长度，第四个参数是存放测量结果的容器
         paint.setColor(Color.BLUE);
@@ -124,7 +132,7 @@ public class MyProgress extends View {
         measuredWidth = getMeasuredWidth();//控件的宽
     }
 
-    public void setProgress(int progress){
+    public void setProgress(int progress) {
         sweepArc = progress;
         /**
          * invalidata 是在主线程强制刷新

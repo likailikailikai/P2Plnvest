@@ -16,12 +16,25 @@ import com.atguigu.p2plnvest.R;
  * 作用：
  */
 
-public class InvestFragment extends Fragment {
-    @Nullable
+public class InvestFragment extends BaseFragment {
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText("Invert");
-        return textView;
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData(String json) {
+
+    }
+
+    @Override
+    public int getLayoutid() {
+        return 0;
+    }
+
+    @Override
+    public String getChildUrl() {
+        return null;
     }
 }
