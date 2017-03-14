@@ -1,6 +1,19 @@
 package com.atguigu.p2plnvest.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.alibaba.fastjson.JSON;
 import com.atguigu.p2plnvest.R;
+import com.atguigu.p2plnvest.adapter.InvestAllAdapter;
+import com.atguigu.p2plnvest.bean.InvestAllBean;
+import com.atguigu.p2plnvest.command.AppNetConfig;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by 情v枫 on 2017/3/10.
@@ -10,6 +23,9 @@ import com.atguigu.p2plnvest.R;
 
 public class InvestAllFragment extends BaseFragment {
 
+    @InjectView(R.id.invest_all_lv)
+    ListView investAllLv;
+
     @Override
     protected void initListener() {
 
@@ -17,7 +33,12 @@ public class InvestAllFragment extends BaseFragment {
 
     @Override
     protected void initData(String json) {
+        InvestAllBean investAllBean = JSON.parseObject(json, InvestAllBean.class);
 
+        InvestAllAdapter adapter =
+                new InvestAllAdapter(investAllBean.getData());
+
+        investAllLv.setAdapter(adapter);
     }
 
     @Override
@@ -27,6 +48,8 @@ public class InvestAllFragment extends BaseFragment {
 
     @Override
     public String getChildUrl() {
-        return null;
+        return AppNetConfig.PRODUCT;
     }
+
+
 }
