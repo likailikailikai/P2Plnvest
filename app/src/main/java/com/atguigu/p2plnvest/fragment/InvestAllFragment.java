@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.p2plnvest.R;
 import com.atguigu.p2plnvest.adapter.InvestAllAdapter;
+import com.atguigu.p2plnvest.adapter.InvestAllAdapter2;
 import com.atguigu.p2plnvest.bean.InvestAllBean;
 import com.atguigu.p2plnvest.command.AppNetConfig;
 
@@ -35,8 +36,14 @@ public class InvestAllFragment extends BaseFragment {
     protected void initData(String json) {
         InvestAllBean investAllBean = JSON.parseObject(json, InvestAllBean.class);
 
-        InvestAllAdapter adapter =
-                new InvestAllAdapter(investAllBean.getData());
+//        InvestAllAdapter adapter =
+//                new InvestAllAdapter(investAllBean.getData());
+//        InvestAllAdapter1 adapter =
+//                new InvestAllAdapter1(investAllBean.getData());
+        InvestAllAdapter2 adapter =
+                new InvestAllAdapter2(investAllBean.getData());
+
+
 
         investAllLv.setAdapter(adapter);
     }
