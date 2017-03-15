@@ -16,12 +16,25 @@ import com.atguigu.p2plnvest.R;
  * 作用：
  */
 
-public class PropertyFragment extends Fragment {
-    @Nullable
+public class PropertyFragment extends BaseFragment {
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText("Property");
-        return textView;
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData(String json) {
+
+    }
+
+    @Override
+    public int getLayoutid() {
+        return R.layout.fragment_property;
+    }
+
+    @Override
+    public String getChildUrl() {
+        return null;
     }
 }

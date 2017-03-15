@@ -18,7 +18,7 @@ import com.atguigu.p2plnvest.utils.AppManager;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     @InjectView(R.id.iv_welcome_icon)
     ImageView ivWelcomeIcon;
@@ -27,23 +27,28 @@ public class SplashActivity extends AppCompatActivity {
     @InjectView(R.id.activity_splash)
     RelativeLayout activitySplash;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        ButterKnife.inject(this);
+    protected void initListener() {
 
-//        Log.e("aaa", "onCreate"+1/0);
-        AppManager.getInstance().addActivity(this);
-
-        initData();
     }
 
-    private void initData() {
+    public void initData() {
+        AppManager.getInstance().addActivity(this);
         //设置版本号
         setVersion();
         //设置动画
         setAnimation();
+    }
+
+    @Override
+    protected void initTitle() {
+
+    }
+
+    @Override
+    public int getLayoutid() {
+        return R.layout.activity_splash;
     }
 
     private void setAnimation() {
@@ -59,9 +64,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                //动画执行完
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
+                if (isLogin()) {
+                    //登录过进入主界面
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    //没有登录过进入登录界面
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                }
             }
 
             @Override
@@ -70,6 +80,10 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
         activitySplash.startAnimation(animation);
+    }
+
+    private boolean isLogin() {
+        return false;
     }
 
     private void setVersion() {
