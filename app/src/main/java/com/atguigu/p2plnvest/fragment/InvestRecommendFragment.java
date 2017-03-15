@@ -1,5 +1,6 @@
 package com.atguigu.p2plnvest.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import com.atguigu.p2plnvest.R;
 import com.atguigu.p2plnvest.ui.randomLayout.StellarMap;
 import com.atguigu.p2plnvest.utils.UiUtils;
+
+import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,12 +32,16 @@ public class InvestRecommendFragment extends BaseFragment {
 
     }
 
-    private String[] datas = new String[]{"新手福利计划", "财神道90天计划", "硅谷钱包计划", "30天理财计划(加息2%)", "180天理财计划(加息5%)", "月月升理财计划(加息10%)",
-            "中情局投资商业经营", "大学老师购买车辆", "屌丝下海经商计划", "美人鱼影视拍摄投资", "Android培训老师自己周转", "养猪场扩大经营",
-            "旅游公司扩大规模", "铁路局回款计划", "屌丝迎娶白富美计划"
+    private String[] datas = new String[]{"新手福利计划", "财神道90天计划", "硅谷钱包计划",
+            "30天理财计划(加息2%)", "180天理财计划(加息5%)", "月月升理财计划(加息10%)",
+            "中情局投资商业经营", "大学老师购买车辆", "屌丝下海经商计划", "美人鱼影视拍摄投资",
+            "Android培训老师自己周转", "养猪场扩大经营", "旅游公司扩大规模",
+            "铁路局回款计划", "屌丝迎娶白富美计划"
     };
     private String[] oneDatas = new String[datas.length / 2];
     private String[] twoDatas = new String[datas.length - datas.length / 2];
+
+    private Random random = new Random();
 
     @Override
     protected void initData(String json) {
@@ -98,11 +105,18 @@ public class InvestRecommendFragment extends BaseFragment {
         @Override
         public View getView(int group, int position, View convertView) {
             TextView tv = new TextView(getActivity());
-            if(group == 0) {
+            if (group == 0) {
                 tv.setText(oneDatas[position]);
-            }else{
+            } else {
                 tv.setText(twoDatas[position]);
             }
+
+            int red = random.nextInt(211); //0-255 颜色值  0-211随机出来的值
+            int green = random.nextInt(211); //0-255 颜色值
+            int blue = random.nextInt(211); //0-255 颜色值
+
+            tv.setTextColor(Color.rgb(red, green, blue));
+
             return tv;
         }
 
@@ -115,9 +129,9 @@ public class InvestRecommendFragment extends BaseFragment {
         //返回下一组的组号
         @Override
         public int getNextGroupOnZoom(int group, boolean isZoomIn) {
-            if(group == 0) {
+            if (group == 0) {
                 return 1;
-            }else{
+            } else {
                 return 0;
             }
         }
