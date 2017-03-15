@@ -1,6 +1,7 @@
 package com.atguigu.p2plnvest.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,9 @@ import com.squareup.picasso.Transformation;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+import jp.wasabeef.picasso.transformations.ColorFilterTransformation;
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 /**
  * Created by 情v枫 on 2017/3/10.
@@ -61,7 +65,7 @@ public class PropertyFragment extends BaseFragment {
         //设置用户名
         tvMeName.setText(user.getData().getName());
         //设置头像
-        Picasso.with(getActivity())
+       /* Picasso.with(getActivity())
                 .load(AppNetConfig.BASE_URL + "/images/tx.png")
                 .transform(new Transformation() {
                     @Override
@@ -76,7 +80,12 @@ public class PropertyFragment extends BaseFragment {
                     public String key() {
                         return "";//不能为空否则会报错
                     }
-                }).into(ivMeIcon);
+                }).into(ivMeIcon);*/
+        Picasso.with(getActivity()).load(AppNetConfig.BASE_URL+"/images/tx.png")
+                .transform(new CropCircleTransformation())
+                .transform(new ColorFilterTransformation(Color.parseColor("#66FFccff")))
+                .transform(new BlurTransformation(getActivity(),15))
+                .into(ivMeIcon);
 
     }
 
