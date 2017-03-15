@@ -53,8 +53,9 @@ public class HomeFragment extends BaseFragment {
     @InjectView(R.id.home_progress)
     MyProgress homeprogress;
 
+    @Override
     public int getLayoutid() {
-        return R.layout.fragment_home;
+        return  R.layout.fragment_home;
     }
 
     @Override
@@ -69,7 +70,6 @@ public class HomeFragment extends BaseFragment {
         baseSetting.setVisibility(View.INVISIBLE);
     }
 
-
     public void initData(String json) {
         HomeBean homeBean = JSON.parseObject(json, HomeBean.class);
         //Log.i("http", "success: "+homeBean.getImageArr().size());
@@ -78,10 +78,10 @@ public class HomeFragment extends BaseFragment {
         //注意：展示UI一定要判断是不是主线程
         initProgress(homeBean.getProInfo());
         initBanner(homeBean);
-
     }
 
     private void initProgress(final HomeBean.ProInfoBean proInfo) {
+
         ThreadPool.getInstance().getGlobalThread().execute(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +95,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initBanner(HomeBean homeBean) {
-//设置图片加载器
+        //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //转化成url集合
         List<String> urls = new ArrayList<>();
@@ -126,8 +126,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+//        ButterKnife.unbind(this);
     }
-
 
 }

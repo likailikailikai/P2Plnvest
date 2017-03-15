@@ -24,8 +24,8 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        loadingPager = new LoadingPager(getActivity()){
-
+        //View view = View.inflate(getActivity(),getLayoutid(),null);
+        loadingPager = new LoadingPager(getActivity()) {
             @Override
             protected void onSuccess(ResultState resultState, View sucessView) {
                 ButterKnife.inject(BaseFragment.this,sucessView);
@@ -42,8 +42,11 @@ public abstract class BaseFragment extends Fragment {
                 return getLayoutid();
             }
         };
+
         return loadingPager;
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -68,6 +71,5 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
     }
 }

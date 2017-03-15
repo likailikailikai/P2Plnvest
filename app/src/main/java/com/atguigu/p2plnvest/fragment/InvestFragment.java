@@ -41,13 +41,13 @@ public class InvestFragment extends BaseFragment {
     @InjectView(R.id.tv_invest_hot)
     TextView tvInvestHot;
 
-    @Override
     protected void initListener() {
 
         investVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //偏移量
+
+                //偏移理
             }
 
             @Override
@@ -79,7 +79,23 @@ public class InvestFragment extends BaseFragment {
                 investVp.setCurrentItem(1);
             }
         });
+    }
 
+    @Override
+    protected void initData(String json) {
+        initListener();
+        //设置标题
+        initTitle();
+        //初始化Fragmet
+        initFragments();
+        //初始化viewPager
+        initViewPager();
+        //设置默认选中的tab
+        initTab();
+    }
+
+    private void initTab() {
+        selectText(0);
     }
 
     private void selectText(int id) {
@@ -99,27 +115,13 @@ public class InvestFragment extends BaseFragment {
         }
     }
 
+    //恢复默认状态
     private void hiddenTextViewState() {
         tvInvestRecommend.setBackgroundColor(Color.WHITE);
         tvInvestHot.setBackgroundColor(Color.WHITE);
         tvInvestAll.setBackgroundColor(Color.WHITE);
     }
 
-    @Override
-    protected void initData(String json) {
-        //设置标题
-        initTitle();
-        //初始化Fragmet
-        initFragments();
-        //初始化viewPager
-        initViewPager();
-        //设置默认选中的tab
-        initTab();
-    }
-
-    private void initTab() {
-        selectText(0);
-    }
 
     private void initViewPager() {
         investVp.setAdapter(new InvesAdapter(getChildFragmentManager(), fragments));
@@ -148,7 +150,6 @@ public class InvestFragment extends BaseFragment {
     public String getChildUrl() {
         return null;
     }
-
 
 
 }
