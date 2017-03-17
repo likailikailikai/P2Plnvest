@@ -4,7 +4,7 @@
     android:id="@+id/activity_line_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.atguigu.p2plnvest.fragment.LineChartActivity">
+    tools:context="com.atguigu.p2plnvest.fragment.activity.LineChartActivity">
 
     <include layout="@layout/base_head"></include>
 

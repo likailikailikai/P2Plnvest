@@ -1,12 +1,8 @@
 package com.atguigu.p2plnvest.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,11 +11,12 @@ import com.atguigu.p2plnvest.R;
 import com.atguigu.p2plnvest.activity.MainActivity;
 import com.atguigu.p2plnvest.bean.UserInfo;
 import com.atguigu.p2plnvest.command.AppNetConfig;
-import com.atguigu.p2plnvest.utils.BitmapUtils;
+import com.atguigu.p2plnvest.fragment.activity.ColumnActivity;
+import com.atguigu.p2plnvest.fragment.activity.LineChartActivity;
+import com.atguigu.p2plnvest.fragment.activity.PieActivity;
+import com.atguigu.p2plnvest.fragment.activity.ReChargeActivity;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import jp.wasabeef.picasso.transformations.ColorFilterTransformation;
@@ -76,6 +73,15 @@ public class PropertyFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), LineChartActivity.class));
             }
         });
+
+        //充值的监听
+        recharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),ReChargeActivity.class));
+            }
+        });
+
     }
 
     @Override

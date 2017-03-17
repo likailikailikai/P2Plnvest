@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.atguigu.p2plnvest.fragment.ColumnActivity">
+    tools:context="com.atguigu.p2plnvest.fragment.activity.ColumnActivity">
 
     <include layout="@layout/base_head"></include>
 

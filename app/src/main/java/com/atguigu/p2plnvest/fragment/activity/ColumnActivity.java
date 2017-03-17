@@ -1,4 +1,4 @@
-package com.atguigu.p2plnvest.fragment;
+package com.atguigu.p2plnvest.fragment.activity;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
