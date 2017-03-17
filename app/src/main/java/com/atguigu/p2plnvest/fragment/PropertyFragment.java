@@ -59,14 +59,14 @@ public class PropertyFragment extends BaseFragment {
         llZichan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(),PieActivity.class));
             }
         });
 
         llTouziZhiguan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(),ColumnActivity.class));
             }
         });
 

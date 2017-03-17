@@ -2,6 +2,7 @@ package com.atguigu.p2plnvest.fragment;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -82,6 +83,15 @@ public class LineChartActivity extends BaseActivity {
 
     @Override
     protected void initTitle() {
+        baseBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        baseSetting.setVisibility(View.GONE);
+        baseTitle.setText("折线图");
 
     }
 
@@ -109,6 +119,7 @@ public class LineChartActivity extends BaseActivity {
         d1.setLineWidth(2.5f);
         //每个坐标点的大小
         d1.setCircleSize(4.5f);
+        //点击坐标是显示的坐标线的颜色
         d1.setHighLightColor(Color.rgb(255, 0, 0));
         //每个点的值是否显示
         d1.setDrawValues(false);
