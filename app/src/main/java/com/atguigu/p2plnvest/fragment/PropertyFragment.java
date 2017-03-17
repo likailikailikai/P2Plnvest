@@ -1,7 +1,10 @@
 package com.atguigu.p2plnvest.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Environment;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.widget.ImageView;
@@ -18,7 +21,13 @@ import com.atguigu.p2plnvest.fragment.activity.LineChartActivity;
 import com.atguigu.p2plnvest.fragment.activity.PieActivity;
 import com.atguigu.p2plnvest.fragment.activity.ReChargeActivity;
 import com.atguigu.p2plnvest.fragment.activity.WithDrawActivity;
+import com.atguigu.p2plnvest.utils.BitmapUtils;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import butterknife.InjectView;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
@@ -59,14 +68,14 @@ public class PropertyFragment extends BaseFragment {
         llZichan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),PieActivity.class));
+                startActivity(new Intent(getActivity(), PieActivity.class));
             }
         });
 
         llTouziZhiguan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ColumnActivity.class));
+                startActivity(new Intent(getActivity(), ColumnActivity.class));
             }
         });
 
@@ -81,14 +90,14 @@ public class PropertyFragment extends BaseFragment {
         recharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ReChargeActivity.class));
+                startActivity(new Intent(getActivity(), ReChargeActivity.class));
             }
         });
 
         withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),WithDrawActivity.class));
+                startActivity(new Intent(getActivity(), WithDrawActivity.class));
             }
         });
 
@@ -135,6 +144,48 @@ public class PropertyFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity activity = (MainActivity) getActivity();
+        Boolean update = activity.isUpdate();
+        if (update) {
+            File filesDir = null;
+            FileInputStream is = null;
+            try {
+                //判断是否挂载了sd卡
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                    //外部存储路径
+                    filesDir = getActivity().getExternalFilesDir("");
+                } else {
+                    filesDir = getActivity().getFilesDir(); //内部存储路径
+                }
+                //全路径
+                File path = new File(filesDir, "123.png");
+
+                if (path.exists()) {
+                    //输出流
+                    is = new FileInputStream(path);
+                    //第一个参数是图片的格式，第二个参数是图片的质量数值大的大质量高，第三个是输出流
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    Bitmap circleBitmap = BitmapUtils.circleBitmap(bitmap);
+                    ivMeIcon.setImageBitmap(circleBitmap);
+                    activity.saveImage(false);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (is != null) {
+                        is.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
     public int getLayoutid() {
         return R.layout.fragment_property;
     }
@@ -143,5 +194,6 @@ public class PropertyFragment extends BaseFragment {
     public String getChildUrl() {
         return null;
     }
+
 
 }

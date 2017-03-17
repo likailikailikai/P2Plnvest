@@ -29,13 +29,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         initListener();
     }
 
-    protected abstract void initListener() ;
+    protected abstract void initListener();
 
-    protected abstract void initData() ;
+    protected abstract void initData();
 
-    protected abstract void initTitle() ;
+    protected abstract void initTitle();
 
-    public abstract int getLayoutid() ;
+    public abstract int getLayoutid();
 
     @Override
     protected void onDestroy() {
@@ -44,23 +44,23 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     //弹出土司
-    public void showToast(String context){
+    public void showToast(String context) {
         Toast.makeText(this, context, Toast.LENGTH_SHORT).show();
     }
 
     //保存用户信息
-    public void saveUser(UserInfo userInfo){
+    public void saveUser(UserInfo userInfo) {
         SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString("imageurl",userInfo.getData().getImageurl());
-        edit.putString("iscredit",userInfo.getData().getIscredit());
-        edit.putString("name",userInfo.getData().getName());
-        edit.putString("phone",userInfo.getData().getPhone());
+        edit.putString("imageurl", userInfo.getData().getImageurl());
+        edit.putString("iscredit", userInfo.getData().getIscredit());
+        edit.putString("name", userInfo.getData().getName());
+        edit.putString("phone", userInfo.getData().getPhone());
         edit.commit();
     }
 
     //获取用户信息
-    public UserInfo getUser(){
+    public UserInfo getUser() {
         SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
         String imageurl = sp.getString("imageurl", "");
         String iscredit = sp.getString("iscredit", "");
@@ -74,6 +74,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         dataBean.setPhone(phone);
         userInfo.setData(dataBean);
         return userInfo;
+    }
+
+    public void saveImage(Boolean isUpdate) {
+        SharedPreferences sp = getSharedPreferences("image", MODE_PRIVATE);
+        sp.edit().putBoolean("update", isUpdate).commit();
+    }
+
+    public Boolean isUpdate() {
+        SharedPreferences sp = getSharedPreferences("image", MODE_PRIVATE);
+        return sp.getBoolean("update", false);
     }
 
 }

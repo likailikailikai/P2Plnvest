@@ -26,12 +26,13 @@ import com.atguigu.p2plnvest.activity.BaseActivity;
 import com.atguigu.p2plnvest.utils.BitmapUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.InjectView;
 
 public class ImageSettingActivity extends BaseActivity {
-
 
 
     @InjectView(R.id.base_title)
@@ -128,7 +129,33 @@ public class ImageSettingActivity extends BaseActivity {
 
 
     private void saveImage(Bitmap bitmap) {
-
+        try {
+            //判断是否挂载了sd卡
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                //外部存储路径
+                filesDir = getExternalFilesDir("");
+            } else {
+                filesDir = getFilesDir(); //内部存储路径
+            }
+            //全路径
+            File path = new File(filesDir, "123.png");
+            //输出流
+            os = new FileOutputStream(path);
+            //第一个参数是图片的格式，第二个参数是图片的质量数值大的大质量高，第三个是输出流
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+            //保存当前是否有更新
+            saveImage(true);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -256,11 +283,11 @@ public class ImageSettingActivity extends BaseActivity {
 
 
     private boolean isDownloadsDocument(Uri uri) {
-        return  "com.android.providers.downloads.documents".equals(uri.getAuthority());
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
 
     private boolean isExternalStorageDocument(Uri uri) {
-        return  "com.android.externalstorage.documents".equals(uri.getAuthority());
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
 
 }
