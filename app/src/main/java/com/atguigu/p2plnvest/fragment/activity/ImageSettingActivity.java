@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.atguigu.p2plnvest.R;
 import com.atguigu.p2plnvest.activity.BaseActivity;
+import com.atguigu.p2plnvest.activity.LoginActivity;
 import com.atguigu.p2plnvest.utils.BitmapUtils;
 
 import java.io.File;
@@ -59,6 +60,22 @@ public class ImageSettingActivity extends BaseActivity {
                 chagerUserIcon();
             }
         });
+
+        btnUserLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 将SP清除
+                 将File删除
+                 销毁所有的Activity
+                 重新进入主界面*/
+                clearFile();
+                clearSp();
+                removeAllActivity();
+                startActivity(new Intent(ImageSettingActivity.this, LoginActivity.class));
+            }
+        });
+
     }
 
     private String changeName[] = {"相机", "相册"};
@@ -66,7 +83,6 @@ public class ImageSettingActivity extends BaseActivity {
     private void chagerUserIcon() {
         new AlertDialog.Builder(this)
                 .setTitle("头像来源")
-                .setTitle("---------------")
                 .setItems(changeName, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -246,7 +262,7 @@ public class ImageSettingActivity extends BaseActivity {
      * url路径查询路段
      *
      * @param context
-     * @param url
+     * @param uri
      * @param selection
      * @param selectionArgs
      * @return
