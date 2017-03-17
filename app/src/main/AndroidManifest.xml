@@ -49,7 +49,8 @@
         <activity android:name=".fragment.activity.LineChartActivity" />
         <activity android:name=".fragment.activity.ColumnActivity" />
         <activity android:name=".fragment.activity.PieActivity" />
-        <activity android:name=".fragment.activity.ReChargeActivity"></activity>
+        <activity android:name=".fragment.activity.ReChargeActivity" />
+        <activity android:name=".fragment.activity.WithDrawActivity"></activity>
     </application>
 
 </manifest>

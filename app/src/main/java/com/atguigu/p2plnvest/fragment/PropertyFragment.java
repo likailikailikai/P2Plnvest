@@ -3,6 +3,7 @@ package com.atguigu.p2plnvest.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.atguigu.p2plnvest.fragment.activity.ColumnActivity;
 import com.atguigu.p2plnvest.fragment.activity.LineChartActivity;
 import com.atguigu.p2plnvest.fragment.activity.PieActivity;
 import com.atguigu.p2plnvest.fragment.activity.ReChargeActivity;
+import com.atguigu.p2plnvest.fragment.activity.WithDrawActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.InjectView;
@@ -79,6 +81,13 @@ public class PropertyFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),ReChargeActivity.class));
+            }
+        });
+
+        withdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),WithDrawActivity.class));
             }
         });
 
