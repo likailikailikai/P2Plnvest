@@ -13,6 +13,7 @@ import com.atguigu.p2plnvest.activity.MainActivity;
 import com.atguigu.p2plnvest.bean.UserInfo;
 import com.atguigu.p2plnvest.command.AppNetConfig;
 import com.atguigu.p2plnvest.fragment.activity.ColumnActivity;
+import com.atguigu.p2plnvest.fragment.activity.ImageSettingActivity;
 import com.atguigu.p2plnvest.fragment.activity.LineChartActivity;
 import com.atguigu.p2plnvest.fragment.activity.PieActivity;
 import com.atguigu.p2plnvest.fragment.activity.ReChargeActivity;
@@ -88,6 +89,14 @@ public class PropertyFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),WithDrawActivity.class));
+            }
+        });
+
+        //设置监听
+        tvSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ImageSettingActivity.class));
             }
         });
 

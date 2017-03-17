@@ -50,7 +50,18 @@
         <activity android:name=".fragment.activity.ColumnActivity" />
         <activity android:name=".fragment.activity.PieActivity" />
         <activity android:name=".fragment.activity.ReChargeActivity" />
-        <activity android:name=".fragment.activity.WithDrawActivity"></activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity android:name=".fragment.activity.WithDrawActivity" />
+        <activity android:name=".fragment.activity.ImageSettingActivity"></activity>
     </application>
 
 </manifest>
