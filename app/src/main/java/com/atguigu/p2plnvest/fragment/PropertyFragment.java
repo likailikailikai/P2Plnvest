@@ -1,5 +1,6 @@
 package com.atguigu.p2plnvest.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -55,11 +56,31 @@ public class PropertyFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        llZichan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+
+        llTouziZhiguan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        llTouzi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), LineChartActivity.class));
+            }
+        });
     }
 
     @Override
     protected void initData(String json) {
+        initListener();
         MainActivity activity = (MainActivity) getActivity();
         UserInfo user = activity.getUser();
         //设置用户名
@@ -81,10 +102,10 @@ public class PropertyFragment extends BaseFragment {
                         return "";//不能为空否则会报错
                     }
                 }).into(ivMeIcon);*/
-        Picasso.with(getActivity()).load(AppNetConfig.BASE_URL+"/images/tx.png")
+        Picasso.with(getActivity()).load(AppNetConfig.BASE_URL + "/images/tx.png")
                 .transform(new CropCircleTransformation())
                 .transform(new ColorFilterTransformation(Color.parseColor("#66FFccff")))
-                .transform(new BlurTransformation(getActivity(),15))
+                .transform(new BlurTransformation(getActivity(), 15))
                 .into(ivMeIcon);
 
     }
