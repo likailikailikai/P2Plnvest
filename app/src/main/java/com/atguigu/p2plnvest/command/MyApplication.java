@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.os.Handler;
 import android.util.Log;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * Created by 情v枫 on 2017/3/11.
  * <p>
@@ -24,6 +26,9 @@ public class MyApplication extends Application {
         context = this;
         threadid = android.os.Process.myPid();
         handler = new Handler();
+
+        //初始化ShareSDK
+        ShareSDK.initSDK(this);
 
 //        //初始化未捕获异常--上线的时候才打开
 //       CrashHandler.getInstance().init();
