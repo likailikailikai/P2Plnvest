@@ -62,6 +62,8 @@
             android:screenOrientation="behind" />
         <activity android:name=".fragment.activity.WithDrawActivity" />
         <activity android:name=".fragment.activity.ImageSettingActivity"></activity>
+        <activity android:name=".activity.GestureVerifyActivity"></activity>
+        <activity android:name=".activity.GestureEditActivity"></activity>
     </application>
 
 </manifest>

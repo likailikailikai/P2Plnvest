@@ -65,7 +65,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                if (isLogin()) {
+                /*if (isLogin()) {
                     //登录过进入主界面
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
@@ -73,7 +73,10 @@ public class SplashActivity extends BaseActivity {
                     //没有登录过进入登录界面
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
-                }
+                }*/
+                //登录过进入主界面
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                finish();
             }
 
             @Override

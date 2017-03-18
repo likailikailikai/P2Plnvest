@@ -1,9 +1,9 @@
 package com.atguigu.p2plnvest.activity;
 
-import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +20,6 @@ import com.atguigu.p2plnvest.utils.AppManager;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MainActivity extends BaseActivity {
@@ -37,6 +36,7 @@ public class MainActivity extends BaseActivity {
         mainRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 switchFragment(checkedId);
             }
         });
