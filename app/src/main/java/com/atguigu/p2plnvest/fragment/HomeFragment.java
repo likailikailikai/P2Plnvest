@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.p2plnvest.R;
 import com.atguigu.p2plnvest.bean.HomeBean;
+import com.atguigu.p2plnvest.bean.RerofitJk;
 import com.atguigu.p2plnvest.command.AppNetConfig;
 import com.atguigu.p2plnvest.ui.MyProgress;
 import com.atguigu.p2plnvest.utils.LoadNet;
@@ -30,6 +31,12 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by 情v枫 on 2017/3/10.
@@ -55,12 +62,12 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public int getLayoutid() {
-        return  R.layout.fragment_home;
+        return R.layout.fragment_home;
     }
 
     @Override
     public String getChildUrl() {
-        return AppNetConfig.INDEX;
+        return null;
     }
 
     public void initListener() {
@@ -71,13 +78,47 @@ public class HomeFragment extends BaseFragment {
     }
 
     public void initData(String json) {
-        HomeBean homeBean = JSON.parseObject(json, HomeBean.class);
-        //Log.i("http", "success: "+homeBean.getImageArr().size());
-        tvHomeYearrate.setText(homeBean.getProInfo().getYearRate() + "%");
-        tvHomeProduct.setText(homeBean.getProInfo().getName());
-        //注意：展示UI一定要判断是不是主线程
-        initProgress(homeBean.getProInfo());
-        initBanner(homeBean);
+        initRetrofit();
+//        HomeBean homeBean = JSON.parseObject(json, HomeBean.class);
+//        //Log.i("http", "success: "+homeBean.getImageArr().size());
+//        tvHomeYearrate.setText(homeBean.getProInfo().getYearRate() + "%");
+//        tvHomeProduct.setText(homeBean.getProInfo().getName());
+//        //注意：展示UI一定要判断是不是主线程
+//        initProgress(homeBean.getProInfo());
+//        initBanner(homeBean);
+    }
+
+    private static final String TAG = "tag";
+
+    private void initRetrofit() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://47.93.118.241:8081/P2PInvest/")
+                //添加解析数据的工厂类
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        RerofitJk rerofitJk = retrofit.create(RerofitJk.class);
+        Call<HomeBean> index = rerofitJk.getIndex();
+        index.enqueue(new Callback<HomeBean>() {
+            @Override
+            public void onResponse(Call<HomeBean> call, Response<HomeBean> response) {
+                Log.i(TAG, "onResponse: " + response.body().toString());
+                HomeBean body = response.body();
+                //Log.i("http", "success: "+homeBean.getImageArr().size());
+                tvHomeYearrate.setText(body.getProInfo().getYearRate() + "%");
+                tvHomeProduct.setText(body.getProInfo().getName());
+                //注意：展示UI一定要判断是不是主线程
+                initProgress(body.getProInfo());
+                initBanner(body);
+            }
+
+            @Override
+            public void onFailure(Call<HomeBean> call, Throwable t) {
+                Log.e("TAG", "失败");
+            }
+        });
+
     }
 
     private void initProgress(final HomeBean.ProInfoBean proInfo) {
